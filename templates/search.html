@@ -1,139 +1,69 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <title>Strictly Search</title>
-  <meta charset="UTF-8">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
-  <style type="text/css">
-    body {
-      font-family: 'Quicksand', sans-serif;
-    }
-
-    td {
-      padding:10px; 
-      border:solid 1px #eee;
-    }
-
-    th {
-      font-family: 'Quicksand', sans-serif;
-      font-weight: 500;
-    }
-
-    input {
-      border:solid 1px #ccc;
-      border-radius: 5px;
-      padding:7px 14px;
-      margin-bottom:10px
-    }
-
-    input:focus {
-      outline:none;
-      border-color:#aaa;
-    }
-    
-    .sort {
-      padding: 8px 30px;
-      border: none;
-      display: inline-block;
-      color: black;
-      background-color: transparent;
-      text-decoration: none;
-      height: 30px;
-      font-weight: bold;
-    }
-
-    .sort:hover {
-      text-decoration: none;
-    }
-    
-    .sort:focus {
-      outline:none;
-    }
-
-    .sort:after {
-      display:inline-block;
-      width: 0;
-      height: 0;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-bottom: 5px solid transparent;
-      content:"";
-      position: relative;
-      top:-10px;
-      right:-5px;
-    }
-
-    .sort.asc:after {
-      width: 0;
-      height: 0;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-top: 5px solid #000;
-      content:"";
-      position: relative;
-      top:4px;
-      right:-5px;
-    }
-    
-    .sort.desc:after {
-      width: 0;
-      height: 0;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-bottom: 5px solid #000;
-      content:"";
-      position: relative;
-      top:-4px;
-      right:-5px;
-    }
-  </style>
+    <title>Strictly Search</title>
+	<meta charset="UTF-8">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+    <link href="./style.css" rel="stylesheet"/>
   </head>
   <body>
-  
-    <div id="strictly">
-    <input class="fuzzy-search" placeholder="Search" />
-
+  <header>
+    <span><h1>Strictly Quick-Look </h1></span>
+  </header>
+  <div id="strictly">
+    <div id="search">
+       <input class="fuzzy-search" placeholder="Search" />
+    </div>
+    <div id="results">
     <table>
-      <thead>
-    	  <th><a class="sort" data-sort="celebrity">Celebrity</a></th>
-    	  <th><a class="sort" data-sort="professional">Professional</a></th>
-    	  <th><a class="sort" data-sort="series">Series<a/></th>
-    	  <th><a class="sort" data-sort="week">Week</a></th>
-    	  <th><a class="sort" data-sort="dance">Dance</a></th>
-    	  <th><a class="sort" data-sort="song">Song</a></th>
-    	  <th><a class="sort" data-sort="score">Judges' Scores</a></th>
-    	  <th><a class="sort" data-sort="total">Total</a></th>
-      </thead>
+    <thead>
+    	<th><a class="sort" data-sort="celebrity">Celebrity</a></th>
+    	<th><a class="sort" data-sort="professional">Professional</a></th>
+    	<th><a class="sort" data-sort="series">Series<a/></th>
+    	<th><a class="sort" data-sort="week">Week</a></th>
+    	<th><a class="sort" data-sort="dance">Dance</a></th>
+    	<th><a class="sort" data-sort="song">Song</a></th>
+    	<th><a class="sort" data-sort="score">Judges' Scores</a></th>
+    	<th><a class="sort" data-sort="total">Total</a></th>
+    </thead>
     <tbody class="list">
     {% for result in results %}
-	    <tr>
-        <td class='celebrity'>{{ result.celebrity }}</td>
-        <td class='professional'>{{ result.professional }}</td>
-		    <td class='series'>{{ result.series }}</td>
-        <td class='week'>{{ result.week }}</td>
-		    <td class='dance'>{{ result.dance }}</td>
-		    <td class='song'>{{ result.song }}</td>
-		    <td class='score'>{{ result.nice_score }}</td>
-        <td class='total'>{{ result.total }}</td>
-	    </tr>
+	<tr>
+		<td class='celebrity'>{{ result.celebrity }}</td>
+		<td class='professional'>{{ result.professional }}</td>
+		<td class='series'>{{ result.series }}</td>
+		<td class='week'>{{ result.week }}</td>
+		<td class='dance'>{{ result.dance }}</td>
+		<td class='song'>{{ result.song }}</td>
+		<td class='score'>{{ result.nice_score }}</td>
+                <td class='total'>{{ result.total }}</td>
+	</tr>
     {% endfor %}
     </tbody>
   </table>
+  
+  <ul class="pagination"></ul>
+  </results>
   </div>
-    <script type="text/javascript">
-      (function() {
-        new List('strictly', {
-	        valueNames:  [ 'celebrity', 'professional', 'dance', 'song', 'total' ],
-	        fuzzySearch: {
-	          searchClass: "fuzzy-search",
+  <footer>
+    <span>Made with ❤ and hosted on GitHub.</span>
+  </footer>
+  <script type="text/javascript">
+    (function() {
+	new List('strictly', {
+	  valueNames:  [ 'celebrity', 'professional', 'dance', 'song', 'total' ],
+          page: 20,
+          pagination: true,
+	  fuzzySearch: {
+	      searchClass: "fuzzy-search",
     	      location: 0,
     	      distance: 100,
-	          threshold: 0.2,
+	      threshold: 0.2,
     	      multiSearch: true
-	        }
- 	      });
-      })();
-  </script>
- </body>
+	  }
+ 	});
+     })();
+ </script>
+  </body>
 </html>
